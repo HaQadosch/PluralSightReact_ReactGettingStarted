@@ -1,10 +1,10 @@
 {
   "name": "react-getting-started",
   "version": "1.0.0",
-  "description": "",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "create-react-app": "^2.1.8",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-scripts": "2.1.8"
@@ -23,5 +23,16 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaQadosch/PluralSightReact_ReactGettingStarted.git"
+  },
+  "author": "HaQadosch Berraka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaQadosch/PluralSightReact_ReactGettingStarted/issues"
+  },
+  "homepage": "https://github.com/HaQadosch/PluralSightReact_ReactGettingStarted#readme",
+  "description": ""
 }
