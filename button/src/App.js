@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import './App.css'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const Button = ({ action }) => {
+  return <button onClick={action} > +1 </button>
 }
 
-export default App;
+const Display = ({ message }) => <div>{message}</div>
+
+const App = props => {
+  const [counter, setCounter] = useState(0)
+  const incCounter = _ => setCounter(counter + 1)
+  console.log(incCounter)
+
+  return (
+    <>
+      <Button action={incCounter} />
+      <Display message={counter} />
+    </>
+  )
+}
+
+export default App
