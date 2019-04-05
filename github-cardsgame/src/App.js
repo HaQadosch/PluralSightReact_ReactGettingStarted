@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import { Card } from './Components/Card'
+import { CardList } from './Components/CardList'
 
 export class App extends Component {
   render () {
@@ -9,7 +9,7 @@ export class App extends Component {
         <h1>{this.props.title}</h1>
       </header>
       <main>
-        <Card />
+        <CardList />
       </main>
     </>)
   }
