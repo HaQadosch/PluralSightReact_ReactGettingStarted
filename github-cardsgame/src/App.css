@@ -13,6 +13,12 @@ header {
   color: white;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
 
 .App {
   text-align: center;

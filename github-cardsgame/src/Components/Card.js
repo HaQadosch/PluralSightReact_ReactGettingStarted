@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../Style/Card.css'
 export class Card extends Component {
   render () {
-    const { profile: { name, avatar_url: avatarURL, company } } = this.props
+    const { name, avatar_url: avatarURL, company } = this.props
     return (
       <section className='h-card' >
         <figure>
