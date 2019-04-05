@@ -1,0 +1,26 @@
+section {
+  display: flex;
+}
+
+section figure figcaption {
+  display: none;
+}
+
+section div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin-top: 16px;
+}
+
+section div p {
+  margin: unset;
+}
+
+section div .p-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
