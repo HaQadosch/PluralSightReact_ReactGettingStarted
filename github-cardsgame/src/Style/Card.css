@@ -6,6 +6,10 @@ section figure figcaption {
   display: none;
 }
 
+section figure img {
+  max-width: 75px;
+}
+
 section div {
   display: flex;
   flex-direction: column;
