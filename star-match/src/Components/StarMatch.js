@@ -20,6 +20,23 @@ export const StarMatch = () => {
     return status
   }
 
+  const onNumberClick = ({ btnId, status }) => {
+    if (status !== 'used') {
+      const newCandidateNums = status === 'available'
+        ? candidateNums.concat(btnId)
+        : candidateNums.filter(btn => btn !== btnId)
+
+      if (utils.sum(newCandidateNums) !== nbrStars) {
+        setCandidateNums(newCandidateNums)
+      } else {
+        const newAvailableNums = availableNums.filter(n => !newCandidateNums.includes(n))
+        setNbrStars(utils.randomSumIn(newAvailableNums, 9))
+        setAvailableNums(newAvailableNums)
+        setCandidateNums([])
+      }
+    }
+  }
+
   return (
     <div className='game'>
       <div className='help'>
@@ -30,7 +47,7 @@ export const StarMatch = () => {
           <StarsDisplay count={nbrStars} />
         </div>
         <div className='right'>
-          {utils.range(1, 9).map(btnId => <PlayNumber key={btnId} btnId={btnId} status={numberStatus(btnId)} />)}
+          {utils.range(1, 9).map(btnId => <PlayNumber key={btnId} btnId={btnId} status={numberStatus(btnId)} onClick={onNumberClick} />)}
         </div>
       </div>
       <div className='timer'>Time Remaining: 10</div>
