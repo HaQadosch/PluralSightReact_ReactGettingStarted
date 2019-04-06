@@ -4,7 +4,7 @@ import { PlayNumber } from './PlayNumber'
 import { StarsDisplay } from './StarsDisplay'
 import { PlayAgain } from './PlayAgain'
 
-export const StarMatch = () => {
+export const StarMatch = ({ reset }) => {
   const [nbrStars, setNbrStars] = useState(utils.random(1, 9))
   const [availableNums, setAvailableNums] = useState(utils.range(1, 9))
   const [candidateNums, setCandidateNums] = useState([])
@@ -24,13 +24,6 @@ export const StarMatch = () => {
     : secondsLeft === 0
       ? 'lost'
       : 'active'
-
-  const reset = _ => {
-    setNbrStars(utils.random(1, 9))
-    setAvailableNums(utils.range(1, 9))
-    setCandidateNums([])
-    setSecondsLeft(10)
-  }
 
   const numberStatus = number => {
     let status = 'available'
