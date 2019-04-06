@@ -4,7 +4,7 @@ import { PlayNumber } from './PlayNumber'
 import { StarsDisplay } from './StarsDisplay'
 import { PlayAgain } from './PlayAgain'
 
-export const StarMatch = ({ reset }) => {
+const useGameState = _ => {
   const [nbrStars, setNbrStars] = useState(utils.random(1, 9))
   const [availableNums, setAvailableNums] = useState(utils.range(1, 9))
   const [candidateNums, setCandidateNums] = useState([])
@@ -17,6 +17,23 @@ export const StarMatch = ({ reset }) => {
     }, 1000)
     return _ => clearTimeout(timeOutId)
   })
+
+  const setGameState = newCandidateNums => {
+    if (utils.sum(newCandidateNums) !== nbrStars) {
+      setCandidateNums(newCandidateNums)
+    } else {
+      const newAvailableNums = availableNums.filter(n => !newCandidateNums.includes(n))
+      setNbrStars(utils.randomSumIn(newAvailableNums, 9))
+      setAvailableNums(newAvailableNums)
+      setCandidateNums([])
+    }
+  }
+
+  return { nbrStars, availableNums, candidateNums, secondsLeft, setGameState }
+}
+
+export const StarMatch = ({ reset }) => {
+  const { nbrStars, availableNums, candidateNums, secondsLeft, setGameState } = useGameState()
 
   const candidatesAreWrong = nbrStars <= utils.sum(candidateNums)
   const gameStatus = availableNums.length === 0
@@ -41,14 +58,7 @@ export const StarMatch = ({ reset }) => {
         ? candidateNums.concat(btnId)
         : candidateNums.filter(btn => btn !== btnId)
 
-      if (utils.sum(newCandidateNums) !== nbrStars) {
-        setCandidateNums(newCandidateNums)
-      } else {
-        const newAvailableNums = availableNums.filter(n => !newCandidateNums.includes(n))
-        setNbrStars(utils.randomSumIn(newAvailableNums, 9))
-        setAvailableNums(newAvailableNums)
-        setCandidateNums([])
-      }
+      setGameState(newCandidateNums)
     }
   }
 
