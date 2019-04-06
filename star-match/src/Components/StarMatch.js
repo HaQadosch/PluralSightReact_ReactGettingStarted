@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { utils } from '../Utils/utils'
 import { PlayNumber } from './PlayNumber'
 import { StarsDisplay } from './StarsDisplay'
@@ -8,14 +8,28 @@ export const StarMatch = () => {
   const [nbrStars, setNbrStars] = useState(utils.random(1, 9))
   const [availableNums, setAvailableNums] = useState(utils.range(1, 9))
   const [candidateNums, setCandidateNums] = useState([])
+  const [secondsLeft, setSecondsLeft] = useState(10)
+
+  useEffect(_ => {
+    if (secondsLeft <= 0 && 0 <= availableNums.length) return // eslint-disable-line
+    const timeOutId = setTimeout(_ => {
+      setSecondsLeft(secondsLeft - 1)
+    }, 1000)
+    return _ => clearTimeout(timeOutId)
+  })
 
   const candidatesAreWrong = nbrStars <= utils.sum(candidateNums)
-  const gameIsDone = availableNums.length === 0
+  const gameStatus = availableNums.length === 0
+    ? 'won'
+    : secondsLeft === 0
+      ? 'lost'
+      : 'active'
 
   const reset = _ => {
     setNbrStars(utils.random(1, 9))
     setAvailableNums(utils.range(1, 9))
     setCandidateNums([])
+    setSecondsLeft(10)
   }
 
   const numberStatus = number => {
@@ -29,7 +43,7 @@ export const StarMatch = () => {
   }
 
   const onNumberClick = ({ btnId, status }) => {
-    if (status !== 'used') {
+    if (status !== 'used' && gameStatus === 'active') {
       const newCandidateNums = status === 'available'
         ? candidateNums.concat(btnId)
         : candidateNums.filter(btn => btn !== btnId)
@@ -52,13 +66,13 @@ export const StarMatch = () => {
       </div>
       <div className='body'>
         <div className='left'>
-          {gameIsDone ? <PlayAgain onClick={reset} /> : <StarsDisplay count={nbrStars} />}
+          {gameStatus !== 'active' ? <PlayAgain onClick={reset} gameStatus={gameStatus} /> : <StarsDisplay count={nbrStars} />}
         </div>
         <div className='right'>
           {utils.range(1, 9).map(btnId => <PlayNumber key={btnId} btnId={btnId} status={numberStatus(btnId)} onClick={onNumberClick} />)}
         </div>
       </div>
-      <div className='timer'>Time Remaining: 10</div>
+      <div className='timer'>Time Remaining: {secondsLeft}</div>
     </div>
   )
 }
